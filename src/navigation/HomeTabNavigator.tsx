@@ -7,7 +7,7 @@ import { HomeStackParamList } from '../types'
 const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
 const HomeTabNavigator: React.FC = () => (
-  <HomeStack.Navigator>
+  <HomeStack.Navigator initialRouteName="ProductListScreen">
     <HomeStack.Screen
       name="ProductListScreen"
       component={ProductListScreen}

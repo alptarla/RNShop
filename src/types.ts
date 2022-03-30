@@ -18,3 +18,10 @@ export type HomeStackParamList = {
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+export type Status = 'idle' | 'loading' | 'error'
+
+export type UserParam = {
+  username: string
+  password: string
+}

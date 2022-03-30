@@ -5,4 +5,6 @@ export default {
   secondary: '#eeeeee',
   secondaryLight: '#ffffff',
   secondaryDark: '#bcbcbc',
+  primaryText: '#373737',
+  secondaryText: '#616161',
 }

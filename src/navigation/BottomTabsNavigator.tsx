@@ -7,7 +7,7 @@ import HomeTabNavigator from './HomeTabNavigator'
 const BottomTabs = createBottomTabNavigator<BottomTabsParamList>()
 
 const BottomTabsNavigator: React.FC = () => (
-  <BottomTabs.Navigator>
+  <BottomTabs.Navigator initialRouteName="HomeTab">
     <BottomTabs.Screen
       name="HomeTab"
       component={HomeTabNavigator}
