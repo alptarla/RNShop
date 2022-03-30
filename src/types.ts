@@ -1,4 +1,5 @@
 import { NavigatorScreenParams } from '@react-navigation/native'
+import store from './store'
 
 export type RootStackParamList = {
   BottomTabs: NavigatorScreenParams<BottomTabsParamList>
@@ -14,3 +15,6 @@ export type HomeStackParamList = {
   ProductListScreen: undefined
   ProductDetailScreen: undefined
 }
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
