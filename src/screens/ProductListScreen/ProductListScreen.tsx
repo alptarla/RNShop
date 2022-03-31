@@ -31,12 +31,15 @@ const ProductListScreen = () => {
     dispatch(getCategories())
   }, [dispatch])
 
-  const goToDetailScreen = (productId: number) => () =>
-    navigation.navigate('ProductDetailScreen', { productId })
+  const goToDetailScreen = (product: Product) => () =>
+    navigation.navigate('ProductDetailScreen', {
+      productId: product.id,
+      productTitle: product.title,
+    })
 
   const renderProductItem: ListRenderItem<Product> = ({ item }) => (
     <Pressable
-      onPress={goToDetailScreen(item.id)}
+      onPress={goToDetailScreen(item)}
       style={styles.productItemContainer}
     >
       <ProductCard product={item} />

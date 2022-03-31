@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 import ProductDetailScreen from '../screens/ProductDetailScreen'
 import ProductListScreen from '../screens/ProductListScreen'
+import Colors from '../theme/Colors'
 import { HomeStackParamList } from '../types'
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>()
@@ -16,6 +17,10 @@ const HomeTabNavigator: React.FC = () => (
     <HomeStack.Screen
       name="ProductDetailScreen"
       component={ProductDetailScreen}
+      options={({ route }) => ({
+        headerTitle: route.params.productTitle,
+        headerTintColor: Colors.primaryDark,
+      })}
     />
   </HomeStack.Navigator>
 )

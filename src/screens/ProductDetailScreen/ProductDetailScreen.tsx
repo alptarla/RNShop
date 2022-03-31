@@ -26,29 +26,31 @@ const ProductDetailScreen = () => {
   if (!product) return null
 
   return (
-    <ScrollView style={styles.screen}>
-      <Image
-        source={{ uri: product.image }}
-        style={styles.image}
-      />
-      <Text style={styles.title}>{product.title}</Text>
-      <View style={styles.priceAndQuantityContainer}>
-        <Text style={styles.price}>${product.price}</Text>
-        <View style={styles.quantityContainer}>
-          <Icon
-            name="minus"
-            size={18}
-          />
-          <Text style={styles.quantity}>1</Text>
-          <Icon
-            name="plus"
-            size={18}
-          />
+    <View style={styles.screen}>
+      <ScrollView>
+        <Image
+          source={{ uri: product.image }}
+          style={styles.image}
+        />
+        <Text style={styles.title}>{product.title}</Text>
+        <View style={styles.priceAndQuantityContainer}>
+          <Text style={styles.price}>${product.price}</Text>
+          <View style={styles.quantityContainer}>
+            <Icon
+              name="minus"
+              size={18}
+            />
+            <Text style={styles.quantity}>1</Text>
+            <Icon
+              name="plus"
+              size={18}
+            />
+          </View>
         </View>
-      </View>
-      <Text style={styles.descriptionTitle}>Description</Text>
-      <Text style={styles.description}>{product.description}</Text>
-    </ScrollView>
+        <Text style={styles.descriptionTitle}>Description</Text>
+        <Text style={styles.description}>{product.description}</Text>
+      </ScrollView>
+    </View>
   )
 }
 

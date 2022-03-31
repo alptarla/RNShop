@@ -58,7 +58,7 @@ const productSlice = createSlice({
       state.status = 'error'
       state.error = action.error.message || DEFAULT_ERROR_MESSAGE
     })
-    builder.addCase(getProductById.pending, (state) => {
+    builder.addCase(getProductById.pending, (state, { meta }) => {
       state.status = 'loading'
     })
   },
