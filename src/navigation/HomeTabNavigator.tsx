@@ -11,6 +11,7 @@ const HomeTabNavigator: React.FC = () => (
     <HomeStack.Screen
       name="ProductListScreen"
       component={ProductListScreen}
+      options={{ headerShown: false }}
     />
     <HomeStack.Screen
       name="ProductDetailScreen"
