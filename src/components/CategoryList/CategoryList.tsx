@@ -1,16 +1,38 @@
-import React from 'react'
-import { FlatList, ListRenderItem, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { FlatList, ListRenderItem, Pressable, Text, View } from 'react-native'
 import styles from './CategoryList.styles'
 
 interface CategoryListProps {
   categories: string[]
+  defaultSelected?: string
+  onCategorySelect: (category: string) => void
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
+const CategoryList: React.FC<CategoryListProps> = ({
+  categories,
+  defaultSelected = 'All',
+  onCategorySelect,
+}) => {
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(defaultSelected)
+
+  const handleCategorySelect = (category: string) => () => {
+    setSelectedCategory(category)
+    onCategorySelect(category)
+  }
+
+  const getCategoryItemStyles = (category: string) => [
+    styles.category,
+    category === selectedCategory && styles.activeCategory,
+  ]
+
   const renderCategoryItem: ListRenderItem<string> = ({ item }) => (
-    <View style={styles.category}>
+    <Pressable
+      onPress={handleCategorySelect(item)}
+      style={getCategoryItemStyles(item)}
+    >
       <Text style={styles.categoryText}>{item}</Text>
-    </View>
+    </Pressable>
   )
 
   return (

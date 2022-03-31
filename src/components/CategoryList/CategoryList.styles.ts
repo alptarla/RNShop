@@ -16,4 +16,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
+  activeCategory: {
+    backgroundColor: Colors.primaryDark,
+  },
 })
