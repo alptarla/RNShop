@@ -13,5 +13,5 @@ export const useRootNavigation = () =>
 export const useMainTabsNavigation = () =>
   useNavigation<BottomTabNavigationProp<BottomTabsParamList>>()
 
-export const useHomeNavigation = () =>
+export const useHomeStackNavigation = () =>
   useNavigation<NativeStackNavigationProp<HomeStackParamList>>()

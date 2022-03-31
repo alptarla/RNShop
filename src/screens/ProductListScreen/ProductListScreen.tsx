@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, ListRenderItem, View } from 'react-native'
+import { FlatList, ListRenderItem, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CategoryList from '../../components/CategoryList/CategoryList'
 import ProductCard from '../../components/ProductCard'
 import { DEFAULT_SELECTED_CATEGORY } from '../../constants'
+import { useHomeStackNavigation } from '../../hooks/useTypedNavigation'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
 import { getCategories } from '../../store/slices/categorySlice'
 import { getProducts } from '../../store/slices/productSlice'
@@ -18,6 +19,7 @@ const ProductListScreen = () => {
   const { categories } = useAppSelector((state) => state.category)
 
   const dispatch = useAppDispatch()
+  const navigation = useHomeStackNavigation()
 
   useEffect(() => {
     if (selectedCategory !== DEFAULT_SELECTED_CATEGORY)
@@ -29,10 +31,16 @@ const ProductListScreen = () => {
     dispatch(getCategories())
   }, [dispatch])
 
+  const goToDetailScreen = (productId: number) => () =>
+    navigation.navigate('ProductDetailScreen', { productId })
+
   const renderProductItem: ListRenderItem<Product> = ({ item }) => (
-    <View style={styles.productItemContainer}>
+    <Pressable
+      onPress={goToDetailScreen(item.id)}
+      style={styles.productItemContainer}
+    >
       <ProductCard product={item} />
-    </View>
+    </Pressable>
   )
 
   return (

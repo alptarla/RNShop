@@ -13,7 +13,7 @@ export type BottomTabsParamList = {
 
 export type HomeStackParamList = {
   ProductListScreen: undefined
-  ProductDetailScreen: undefined
+  ProductDetailScreen: { productId: number }
 }
 
 export type RootState = ReturnType<typeof store.getState>
