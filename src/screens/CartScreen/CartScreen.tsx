@@ -1,5 +1,6 @@
 import React from 'react'
 import { FlatList, ListRenderItem, Pressable, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import CartItem from '../../components/CartItem'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
 import { removeProduct } from '../../store/slices/cartSlice'
@@ -28,7 +29,10 @@ const CartScreen = () => {
   )
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView
+      style={styles.screen}
+      edges={['top', 'left', 'right']}
+    >
       <FlatList
         data={products}
         renderItem={renderCartItem}
@@ -45,7 +49,7 @@ const CartScreen = () => {
           <Text style={styles.payButtonText}>Pay Now</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

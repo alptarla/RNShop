@@ -18,33 +18,36 @@ const renderTabBarIcon = (name: string) => {
 
 const BottomTabs = createBottomTabNavigator<BottomTabsParamList>()
 
-const BottomTabsNavigator: React.FC = () => (
-  <BottomTabs.Navigator
-    initialRouteName="HomeTab"
-    screenOptions={{
-      tabBarShowLabel: false,
-      tabBarActiveTintColor: Colors.primaryDark,
-      tabBarInactiveTintColor: Colors.primary,
-    }}
-  >
-    <BottomTabs.Screen
-      name="HomeTab"
-      component={HomeTabNavigator}
-      options={{
-        headerShown: false,
-        tabBarIcon: renderTabBarIcon('shopping'),
+const BottomTabsNavigator: React.FC = () => {
+  return (
+    <BottomTabs.Navigator
+      initialRouteName="HomeTab"
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: Colors.primaryDark,
+        tabBarInactiveTintColor: Colors.primary,
       }}
-    />
-    <BottomTabs.Screen
-      name="CartScreen"
-      component={CartScreen}
-      options={{
-        headerTitle: 'Your Cart',
-        headerTintColor: Colors.primaryDark,
-        tabBarIcon: renderTabBarIcon('cart'),
-      }}
-    />
-  </BottomTabs.Navigator>
-)
+    >
+      <BottomTabs.Screen
+        name="HomeTab"
+        component={HomeTabNavigator}
+        options={{
+          headerShown: false,
+          tabBarIcon: renderTabBarIcon('shopping'),
+        }}
+      />
+      <BottomTabs.Screen
+        name="CartScreen"
+        component={CartScreen}
+        options={{
+          headerShown: false,
+          headerTitle: 'Your Cart',
+          headerTintColor: Colors.primaryDark,
+          tabBarIcon: renderTabBarIcon('cart'),
+        }}
+      />
+    </BottomTabs.Navigator>
+  )
+}
 
 export default BottomTabsNavigator

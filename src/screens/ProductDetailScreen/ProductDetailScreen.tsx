@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { useMainTabsNavigation } from '../../hooks/useTypedNavigation'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
 import { addProduct } from '../../store/slices/cartSlice'
@@ -49,7 +50,10 @@ const ProductDetailScreen = () => {
     )
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView
+      style={styles.screen}
+      edges={['top', 'left', 'right']}
+    >
       <ScrollView>
         <Image
           source={{ uri: product.image }}
@@ -91,7 +95,7 @@ const ProductDetailScreen = () => {
         <Text style={styles.descriptionTitle}>Description</Text>
         <Text style={styles.description}>{product.description}</Text>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
 

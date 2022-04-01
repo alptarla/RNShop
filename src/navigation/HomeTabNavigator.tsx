@@ -38,10 +38,12 @@ const HomeTabNavigator: React.FC = () => {
       <HomeStack.Screen
         name="ProductDetailScreen"
         component={ProductDetailScreen}
-        options={({ route }) => ({
-          headerTitle: route.params.productTitle,
+        options={{
           headerTintColor: Colors.primaryDark,
-        })}
+          headerTitle: '',
+          headerBackTitle: '',
+          headerTransparent: true,
+        }}
       />
     </HomeStack.Navigator>
   )
