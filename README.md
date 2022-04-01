@@ -12,3 +12,9 @@ Users should be able to:
 - Add product to shopping cart or remove it
 - See all products at the shopping cart
 - Remove all products from the shopping cart
+
+### Screenshots
+
+<img src="./screenshots/app-screenshot-1.png" width="200" />
+<img src="./screenshots/app-screenshot-2.png" width="200" />
+<img src="./screenshots/app-screenshot-3.png" width="200" />
