@@ -1,6 +1,6 @@
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   Image,
@@ -19,11 +19,17 @@ import { HomeStackParamList } from '../../types'
 import styles from './ProductDetailScreen.styles'
 
 const ProductDetailScreen = () => {
+  const [quantity, setQuantity] = useState(1)
+
   const { selectedProduct: product, status } = useAppSelector(
     (state) => state.product
   )
   const { products: cartProducts } = useAppSelector((state) => state.cart)
   const hasCart = cartProducts.some((p) => p.id === product?.id)
+
+  const updateQuantity = (count: number) => () => {
+    if (count > 0) setQuantity(count)
+  }
 
   const {
     params: { productId },
@@ -63,15 +69,19 @@ const ProductDetailScreen = () => {
         <View style={styles.priceAndQuantityContainer}>
           <Text style={styles.price}>${product.price}</Text>
           <View style={styles.quantityContainer}>
-            <Icon
-              name="minus"
-              size={18}
-            />
-            <Text style={styles.quantity}>1</Text>
-            <Icon
-              name="plus"
-              size={18}
-            />
+            <Pressable onPress={updateQuantity(quantity - 1)}>
+              <Icon
+                name="minus"
+                size={18}
+              />
+            </Pressable>
+            <Text style={styles.quantity}>{quantity}</Text>
+            <Pressable onPress={updateQuantity(quantity + 1)}>
+              <Icon
+                name="plus"
+                size={18}
+              />
+            </Pressable>
           </View>
         </View>
         {hasCart ? (
