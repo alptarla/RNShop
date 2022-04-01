@@ -22,7 +22,7 @@ const ProductDetailScreen = () => {
     (state) => state.product
   )
   const { products: cartProducts } = useAppSelector((state) => state.cart)
-  const hasCart = cartProducts.some((p) => p.id === product!.id)
+  const hasCart = cartProducts.some((p) => p.id === product?.id)
 
   const {
     params: { productId },
