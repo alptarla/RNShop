@@ -1,18 +1,17 @@
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React, { useEffect } from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
 import { getProductById } from '../../store/slices/productSlice'
+import Colors from '../../theme/Colors'
 import { HomeStackParamList } from '../../types'
 import styles from './ProductDetailScreen.styles'
 
 const ProductDetailScreen = () => {
-  const {
-    selectedProduct: product,
-    status,
-    error,
-  } = useAppSelector((state) => state.product)
+  const { selectedProduct: product, status } = useAppSelector(
+    (state) => state.product
+  )
 
   const {
     params: { productId },
@@ -23,7 +22,15 @@ const ProductDetailScreen = () => {
     dispatch(getProductById({ id: productId }))
   }, [productId])
 
-  if (!product) return null
+  if (status === 'loading' || !product)
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator
+          size="large"
+          color={Colors.primary}
+        />
+      </View>
+    )
 
   return (
     <View style={styles.screen}>
