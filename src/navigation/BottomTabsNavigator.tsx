@@ -1,6 +1,7 @@
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
+import { useAppSelector } from '../hooks/useTypedRedux'
 import CartScreen from '../screens/CartScreen'
 import Colors from '../theme/Colors'
 import { BottomTabsParamList } from '../types'
@@ -19,6 +20,8 @@ const renderTabBarIcon = (name: string) => {
 const BottomTabs = createBottomTabNavigator<BottomTabsParamList>()
 
 const BottomTabsNavigator: React.FC = () => {
+  const { products } = useAppSelector((state) => state.cart)
+
   return (
     <BottomTabs.Navigator
       initialRouteName="HomeTab"
@@ -44,6 +47,7 @@ const BottomTabsNavigator: React.FC = () => {
           headerTitle: 'Your Cart',
           headerTintColor: Colors.primaryDark,
           tabBarIcon: renderTabBarIcon('cart'),
+          tabBarBadge: products.length ? products.length : undefined,
         }}
       />
     </BottomTabs.Navigator>
