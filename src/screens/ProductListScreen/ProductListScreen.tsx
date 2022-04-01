@@ -6,7 +6,6 @@ import {
   Pressable,
   View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import CategoryList from '../../components/CategoryList/CategoryList'
 import ProductCard from '../../components/ProductCard'
 import { DEFAULT_SELECTED_CATEGORY } from '../../constants'
@@ -64,10 +63,7 @@ const ProductListScreen = () => {
     )
 
   return (
-    <SafeAreaView
-      style={styles.screen}
-      edges={['top', 'left', 'right']}
-    >
+    <View style={styles.screen}>
       <CategoryList
         categories={['All', ...categories]}
         onCategorySelect={setSelectedCategory}
@@ -78,7 +74,7 @@ const ProductListScreen = () => {
         renderItem={renderProductItem}
         numColumns={2}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

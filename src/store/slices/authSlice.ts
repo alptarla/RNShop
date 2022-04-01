@@ -30,6 +30,11 @@ const authSlice = createSlice({
     setToken(state, { payload }: PayloadAction<string | null>) {
       state.token = payload
     },
+    logout(state) {
+      state.token = null
+
+      StorageService.removeData(TOKEN_STORAGE_KEY)
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -53,4 +58,4 @@ const authSlice = createSlice({
 })
 
 export default authSlice.reducer
-export const { setToken } = authSlice.actions
+export const { setToken, logout } = authSlice.actions
