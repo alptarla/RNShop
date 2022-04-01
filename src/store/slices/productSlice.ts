@@ -12,7 +12,16 @@ type ProductState = {
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
-  ({ category }: { category?: string }) => ProductService.getProducts(category)
+  async ({ category, search }: { category?: string; search?: string }) => {
+    let data = []
+    data = await ProductService.getProducts(category)
+    if (search) {
+      const titleRegex = new RegExp(search.toLowerCase(), 'g')
+      data = data.filter((item) => item.title.toLowerCase().match(titleRegex))
+    }
+
+    return data
+  }
 )
 
 export const getProductById = createAsyncThunk(

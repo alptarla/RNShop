@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   FlatList,
   ListRenderItem,
   Pressable,
+  TextInput,
   View,
 } from 'react-native'
 import CategoryList from '../../components/CategoryList/CategoryList'
@@ -25,6 +26,8 @@ import { Product } from '../../types'
 import styles from './ProductListScreen.styles'
 
 const ProductListScreen = () => {
+  const [search, setSearch] = useState('')
+
   const { products, status } = useAppSelector((state) => state.product)
   const { categories, selectedCategory } = useAppSelector(
     (state) => state.category
@@ -37,12 +40,12 @@ const ProductListScreen = () => {
 
   useEffect(() => {
     if (selectedCategory !== DEFAULT_SELECTED_CATEGORY) {
-      dispatch(getProducts({ category: selectedCategory }))
+      dispatch(getProducts({ category: selectedCategory, search }))
       return
     }
 
-    dispatch(getProducts({}))
-  }, [selectedCategory])
+    dispatch(getProducts({ search }))
+  }, [selectedCategory, search])
 
   useEffect(() => {
     dispatch(getCategories())
@@ -81,6 +84,13 @@ const ProductListScreen = () => {
         categories={['All', ...categories]}
         onCategorySelect={handleCategorySelect}
         selectedCategory={selectedCategory}
+      />
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search..."
+        value={search}
+        onChangeText={setSearch}
+        autoCapitalize="none"
       />
       {status === 'loading' ? (
         <View
