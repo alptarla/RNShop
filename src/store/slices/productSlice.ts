@@ -10,8 +10,9 @@ type ProductState = {
   error: string | null
 }
 
-export const getProducts = createAsyncThunk('products/getProducts', () =>
-  ProductService.getProducts()
+export const getProducts = createAsyncThunk(
+  'products/getProducts',
+  ({ category }: { category?: string }) => ProductService.getProducts(category)
 )
 
 export const getProductById = createAsyncThunk(

@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { DEFAULT_SELECTED_CATEGORY } from '../../constants'
 import CategoryService from '../../services/CategoryService'
 
 type CategoryState = {
   categories: string[]
+  selectedCategory: string
 }
 
 export const getCategories = createAsyncThunk('categories/getCategories', () =>
@@ -11,12 +13,17 @@ export const getCategories = createAsyncThunk('categories/getCategories', () =>
 
 const initialState: CategoryState = {
   categories: [],
+  selectedCategory: DEFAULT_SELECTED_CATEGORY,
 }
 
 const categorySlice = createSlice({
   name: 'category',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedCategory(state, { payload }: PayloadAction<string>) {
+      state.selectedCategory = payload
+    },
+  },
   extraReducers(builder) {
     builder.addCase(
       getCategories.fulfilled,
@@ -28,3 +35,4 @@ const categorySlice = createSlice({
 })
 
 export default categorySlice.reducer
+export const { setSelectedCategory } = categorySlice.actions

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   ActivityIndicator,
   FlatList,
@@ -15,18 +15,20 @@ import {
 } from '../../hooks/useTypedNavigation'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
 import { addProduct } from '../../store/slices/cartSlice'
-import { getCategories } from '../../store/slices/categorySlice'
+import {
+  getCategories,
+  setSelectedCategory,
+} from '../../store/slices/categorySlice'
 import { getProducts } from '../../store/slices/productSlice'
 import Colors from '../../theme/Colors'
 import { Product } from '../../types'
 import styles from './ProductListScreen.styles'
 
 const ProductListScreen = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    DEFAULT_SELECTED_CATEGORY
-  )
   const { products, status } = useAppSelector((state) => state.product)
-  const { categories } = useAppSelector((state) => state.category)
+  const { categories, selectedCategory } = useAppSelector(
+    (state) => state.category
+  )
   const { products: cartProducts } = useAppSelector((state) => state.cart)
 
   const dispatch = useAppDispatch()
@@ -34,9 +36,12 @@ const ProductListScreen = () => {
   const mainTabsNavigation = useMainTabsNavigation()
 
   useEffect(() => {
-    // if (selectedCategory !== DEFAULT_SELECTED_CATEGORY)
-    // TODO: filter products by selected category
-    dispatch(getProducts())
+    if (selectedCategory !== DEFAULT_SELECTED_CATEGORY) {
+      dispatch(getProducts({ category: selectedCategory }))
+      return
+    }
+
+    dispatch(getProducts({}))
   }, [selectedCategory])
 
   useEffect(() => {
@@ -50,6 +55,9 @@ const ProductListScreen = () => {
     })
 
   const goToCartScreen = () => mainTabsNavigation.navigate('CartScreen')
+
+  const handleCategorySelect = (category: string) =>
+    dispatch(setSelectedCategory(category))
 
   const handleAddToCart = (product: Product) => dispatch(addProduct(product))
 
@@ -67,28 +75,29 @@ const ProductListScreen = () => {
     </Pressable>
   )
 
-  if (status === 'loading')
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator
-          size="large"
-          color={Colors.primary}
-        />
-      </View>
-    )
-
   return (
     <View style={styles.screen}>
       <CategoryList
         categories={['All', ...categories]}
-        onCategorySelect={setSelectedCategory}
-        defaultSelected={DEFAULT_SELECTED_CATEGORY}
+        onCategorySelect={handleCategorySelect}
+        selectedCategory={selectedCategory}
       />
-      <FlatList
-        data={products}
-        renderItem={renderProductItem}
-        numColumns={2}
-      />
+      {status === 'loading' ? (
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <ActivityIndicator
+            size="large"
+            color={Colors.primary}
+          />
+        </View>
+      ) : (
+        <FlatList
+          data={products}
+          renderItem={renderProductItem}
+          numColumns={2}
+        />
+      )}
     </View>
   )
 }
