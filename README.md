@@ -15,6 +15,8 @@ Users should be able to:
 
 ### Screenshots
 
-<img src="./screenshots/app-screenshot-1.png" width="200" />
-<img src="./screenshots/app-screenshot-2.png" width="200" />
-<img src="./screenshots/app-screenshot-3.png" width="200" />
+<div>
+  <img src="./screenshots/app-screenshot-1.png" width="200" />
+  <img src="./screenshots/app-screenshot-2.png" width="200" />
+  <img src="./screenshots/app-screenshot-3.png" width="200" />
+</div>
