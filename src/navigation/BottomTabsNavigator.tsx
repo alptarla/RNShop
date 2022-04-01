@@ -21,11 +21,11 @@ const BottomTabs = createBottomTabNavigator<BottomTabsParamList>()
 const BottomTabsNavigator: React.FC = () => (
   <BottomTabs.Navigator
     initialRouteName="HomeTab"
-    screenOptions={({ route }) => ({
+    screenOptions={{
       tabBarShowLabel: false,
       tabBarActiveTintColor: Colors.primaryDark,
       tabBarInactiveTintColor: Colors.primary,
-    })}
+    }}
   >
     <BottomTabs.Screen
       name="HomeTab"
@@ -39,6 +39,8 @@ const BottomTabsNavigator: React.FC = () => (
       name="CartScreen"
       component={CartScreen}
       options={{
+        headerTitle: 'Your Cart',
+        headerTintColor: Colors.primaryDark,
         tabBarIcon: renderTabBarIcon('cart'),
       }}
     />

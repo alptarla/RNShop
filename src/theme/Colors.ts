@@ -7,4 +7,5 @@ export default {
   secondaryDark: '#bcbcbc',
   primaryText: '#373737',
   secondaryText: '#616161',
+  danger: '#df4759',
 }
