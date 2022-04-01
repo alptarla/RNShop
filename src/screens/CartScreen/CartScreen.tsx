@@ -1,9 +1,17 @@
 import React from 'react'
-import { FlatList, ListRenderItem, Pressable, Text, View } from 'react-native'
+import {
+  Alert,
+  FlatList,
+  ListRenderItem,
+  Pressable,
+  Text,
+  View,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CartItem from '../../components/CartItem'
+import { useMainTabsNavigation } from '../../hooks/useTypedNavigation'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
-import { removeProduct } from '../../store/slices/cartSlice'
+import { clearCart, removeProduct } from '../../store/slices/cartSlice'
 import { Product } from '../../types'
 import styles from './CartScreen.styles'
 
@@ -12,11 +20,21 @@ const CartScreen = () => {
   const totalPrice = products.reduce((acc, curr) => acc + curr.price, 0)
 
   const dispatch = useAppDispatch()
+  const mainTabsNavigation = useMainTabsNavigation()
 
   const handleRemoveItem = (id: number) => dispatch(removeProduct(id))
 
   const handlePayment = () => {
-    // TODO: clear all items from cart and display a popup
+    dispatch(clearCart())
+    Alert.alert('Success', 'Order received successfully', [
+      {
+        text: 'Okey',
+        onPress: () =>
+          mainTabsNavigation.navigate('HomeTab', {
+            screen: 'ProductListScreen',
+          }),
+      },
+    ])
   }
 
   const renderCartItem: ListRenderItem<Product> = ({ item }) => (
