@@ -17,7 +17,11 @@ import styles from './CartScreen.styles'
 
 const CartScreen = () => {
   const { products } = useAppSelector((state) => state.cart)
-  const totalPrice = products.reduce((acc, curr) => acc + curr.price, 0)
+
+  const totalPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(products.reduce((acc, curr) => acc + curr.price, 0))
 
   const dispatch = useAppDispatch()
   const mainTabsNavigation = useMainTabsNavigation()
@@ -58,7 +62,7 @@ const CartScreen = () => {
       <View style={styles.screenBottom}>
         <View>
           <Text style={styles.totalPriceTitle}>Total price</Text>
-          <Text style={styles.totalPrice}>${totalPrice}</Text>
+          <Text style={styles.totalPrice}>{totalPrice}</Text>
         </View>
         <Pressable
           style={styles.payButton}
