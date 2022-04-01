@@ -1,8 +1,17 @@
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React, { useEffect } from 'react'
-import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native'
+import { useMainTabsNavigation } from '../../hooks/useTypedNavigation'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
+import { addProduct } from '../../store/slices/cartSlice'
 import { getProductById } from '../../store/slices/productSlice'
 import Colors from '../../theme/Colors'
 import { HomeStackParamList } from '../../types'
@@ -12,15 +21,22 @@ const ProductDetailScreen = () => {
   const { selectedProduct: product, status } = useAppSelector(
     (state) => state.product
   )
+  const { products: cartProducts } = useAppSelector((state) => state.cart)
+  const hasCart = cartProducts.some((p) => p.id === product!.id)
 
   const {
     params: { productId },
   } = useRoute<RouteProp<HomeStackParamList, 'ProductDetailScreen'>>()
   const dispatch = useAppDispatch()
+  const mainTabsNavigation = useMainTabsNavigation()
 
   useEffect(() => {
     dispatch(getProductById({ id: productId }))
   }, [productId])
+
+  const handleAddToCart = () => dispatch(addProduct(product!))
+
+  const goToCartScreen = () => mainTabsNavigation.navigate('CartScreen')
 
   if (status === 'loading' || !product)
     return (
@@ -54,6 +70,24 @@ const ProductDetailScreen = () => {
             />
           </View>
         </View>
+        {hasCart ? (
+          <Pressable
+            onPress={goToCartScreen}
+            style={[
+              styles.cartButton,
+              { backgroundColor: Colors.secondaryDark },
+            ]}
+          >
+            <Text style={styles.cartButtonText}>Go to cart</Text>
+          </Pressable>
+        ) : (
+          <Pressable
+            onPress={handleAddToCart}
+            style={[styles.cartButton, { backgroundColor: Colors.primaryDark }]}
+          >
+            <Text style={styles.cartButtonText}>Add to cart</Text>
+          </Pressable>
+        )}
         <Text style={styles.descriptionTitle}>Description</Text>
         <Text style={styles.description}>{product.description}</Text>
       </ScrollView>

@@ -22,7 +22,18 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 30,
+  },
+  cartButton: {
+    width: '100%',
+    padding: 10,
+    borderRadius: 5,
     marginVertical: 30,
+  },
+  cartButtonText: {
+    color: Colors.secondaryLight,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   price: {
     color: Colors.primaryText,

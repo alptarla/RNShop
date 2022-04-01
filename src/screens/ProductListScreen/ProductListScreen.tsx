@@ -9,8 +9,12 @@ import {
 import CategoryList from '../../components/CategoryList/CategoryList'
 import ProductCard from '../../components/ProductCard'
 import { DEFAULT_SELECTED_CATEGORY } from '../../constants'
-import { useHomeStackNavigation } from '../../hooks/useTypedNavigation'
+import {
+  useHomeStackNavigation,
+  useMainTabsNavigation,
+} from '../../hooks/useTypedNavigation'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedRedux'
+import { addProduct } from '../../store/slices/cartSlice'
 import { getCategories } from '../../store/slices/categorySlice'
 import { getProducts } from '../../store/slices/productSlice'
 import Colors from '../../theme/Colors'
@@ -23,9 +27,11 @@ const ProductListScreen = () => {
   )
   const { products, status } = useAppSelector((state) => state.product)
   const { categories } = useAppSelector((state) => state.category)
+  const { products: cartProducts } = useAppSelector((state) => state.cart)
 
   const dispatch = useAppDispatch()
-  const navigation = useHomeStackNavigation()
+  const homeStackNavigation = useHomeStackNavigation()
+  const mainTabsNavigation = useMainTabsNavigation()
 
   useEffect(() => {
     // if (selectedCategory !== DEFAULT_SELECTED_CATEGORY)
@@ -38,17 +44,26 @@ const ProductListScreen = () => {
   }, [dispatch])
 
   const goToDetailScreen = (product: Product) => () =>
-    navigation.navigate('ProductDetailScreen', {
+    homeStackNavigation.navigate('ProductDetailScreen', {
       productId: product.id,
       productTitle: product.title,
     })
+
+  const goToCartScreen = () => mainTabsNavigation.navigate('CartScreen')
+
+  const handleAddToCart = (product: Product) => dispatch(addProduct(product))
 
   const renderProductItem: ListRenderItem<Product> = ({ item }) => (
     <Pressable
       onPress={goToDetailScreen(item)}
       style={styles.productItemContainer}
     >
-      <ProductCard product={item} />
+      <ProductCard
+        product={item}
+        onAddToCart={handleAddToCart}
+        goToCartScreen={goToCartScreen}
+        hasCart={cartProducts.some((p) => p.id === item.id)}
+      />
     </Pressable>
   )
 

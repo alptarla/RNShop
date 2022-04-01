@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { TOKEN_STORAGE_KEY } from '../constants'
 import StorageService from '../services/StorageService'
 import authSlice, { setToken } from './slices/authSlice'
+import cartSlice from './slices/cartSlice'
 import categorySlice from './slices/categorySlice'
 import productSlice from './slices/productSlice'
 
@@ -10,6 +11,7 @@ const store = configureStore({
     auth: authSlice,
     product: productSlice,
     category: categorySlice,
+    cart: cartSlice,
   },
 })
 

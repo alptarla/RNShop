@@ -38,4 +38,21 @@ export default StyleSheet.create({
   category: {
     color: Colors.secondaryText,
   },
+  cartButton: {
+    padding: 5,
+    borderRadius: 5,
+    marginTop: 10,
+    width: '100%',
+  },
+  cartButtonText: {
+    color: Colors.secondaryLight,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  goToCartButton: {
+    backgroundColor: Colors.secondaryDark,
+  },
+  addToCartButton: {
+    backgroundColor: Colors.primary,
+  },
 })
